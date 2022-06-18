@@ -1,12 +1,12 @@
 # TASTES
 
-Just another transcriptome de-novo assembly & annotation toolkit written in Snakemake.
+Just another de-novo transcriptome assembly & annotation toolkit written in Snakemake.
 
 ## Features
 
 This is a working-in-progress project and is NOT ready for production use!
 
-TASTES is a general-purpose de-novo transcriptome assembly & annotation toolkit written in Snakemake.
+TASTES is a general-purpose de-novo transcriptome assembly & annotation toolkit powered by Snakemake.
 
 TASTES is designed to work on hundreds of RNA-seq datasets of different species simultaneously, although it is possible to work on a selected few. Raw reads are first fed to the preprocessing module, with QC reports generated before and after the preprocessing. Then they go through de-novo assembly using a multi-assembler & kmer approach. Assemblies are later merged with efforts to minimize loss of paralogs. Lastly, the transcripts are annotated, and a completeness report is generated. Modules are meant to be switchable and customizable whenever possible.
 
