@@ -4,9 +4,11 @@ Just another transcriptome de-novo assembly & annotation toolkit written in Snak
 
 ## Features
 
-TASTES is a working-in-progress project and is NOT ready for production use!
+This is a working-in-progress project and is NOT ready for production use!
 
-TASTES is a general-purpose de-novo transcriptome assembly & annotation toolkit written in Snakemake. TASTES is designed to work on hundreds of RNA-seq datasets of different species simultaneously, although it is possible to work on a selected few. Raw reads are first fed to the preprocessing module, with QC reports generated before and after the preprocessing. Then the assembling module takes care of de-novo assembly using a multi-assembler & kmer approach. Assemblies are merged with minimized loss of paralogs. Lastly, the transcripts are annotated, and a completeness report is generated. Modules are meant to be switchable and customizable when possible.
+TASTES is a general-purpose de-novo transcriptome assembly & annotation toolkit written in Snakemake.
+
+TASTES is designed to work on hundreds of RNA-seq datasets of different species simultaneously, although it is possible to work on a selected few. Raw reads are first fed to the preprocessing module, with QC reports generated before and after the preprocessing. Then they go through de-novo assembly using a multi-assembler & kmer approach. Assemblies are later merged with efforts to minimize loss of paralogs. Lastly, the transcripts are annotated, and a completeness report is generated. Modules are meant to be switchable and customizable whenever possible.
 
 - Bundled with a script that automates downloading and organizing RNA-seq datasets from the NCBI SRA database.
 - Designed with flexibility and customizability in mind.
@@ -101,7 +103,7 @@ snakemake --cores 8 --wms-monitor http://127.0.0.1:5000
 ## TODO
 
 - Finish the main pipeline (yup, have fun playing around and breaking things).
-- Make some modules optional.
+- Make modules optional whenever possible.
 - Add unit tests.
 - Add comprehensive docs.
 - Support single-end and long-read data.
