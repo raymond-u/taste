@@ -1,0 +1,33 @@
+{
+    "name": "Orchidaceae",
+    "rank": "family",
+    "children": [
+        {
+            "name": "Apostasioideae",
+            "rank": "subfamily",
+            "children": [
+                {
+                    "name": "Apostasia",
+                    "rank": "genus",
+                    "children": [
+                        {
+                            "name": "shenzhenica",
+                            "rank": "species",
+                            "children": [],
+                            "transcriptomes": [
+                                {
+                                    "run": "SRR3183239",
+                                    "tissue": "root"
+                                },
+                                {
+                                    "run": "SRR3183244",
+                                    "tissue": "stem"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

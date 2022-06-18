@@ -1,0 +1,61 @@
+# For whatever reason, simly nohup & exit seemed to hang the singularity processes. Use screen or disown.
+
+from pathlib import Path
+
+configfile: "config/config.yaml"
+workdir: config["pipeline_path"]
+
+# preprocessing & QC
+include: "rules/pre-assembly/fastqc.smk"
+include: "rules/pre-assembly/fastp.smk" # fastp outputs should be reserved for downstream analysis (for example, gene expression profiling)
+include: "rules/pre-assembly/rcorrector.smk"
+include: "rules/pre-assembly/sortmerna.smk"
+
+# pooling & read normalization
+include: "rules/pre-assembly/pool.smk"
+include: "rules/pre-assembly/ORNA.smk"
+
+# combined de novo assembly
+include: "rules/assembly/trinity.smk"
+include: "rules/assembly/transabyss.smk"
+include: "rules/assembly/soapdenovotrans.smk"
+include: "rules/assembly/oases.smk"
+
+# reduction & decontamination
+#include: "rules/post-assembly/tr2aacds.smk"
+#include: "rules/post-assembly/MCSC.smk"
+
+# annotation & QC
+#include: "rules/dammit.smk"
+#include: "rules/transrate.smk"
+#include: "rules/salmon_index.smk"
+#include: "rules/salmon_index.smk"
+#include: "rules/salmon_quant.smk"
+#include: "rules/corset.smk"
+
+shell.prefix("ulimit -n 1000000; ulimit -s unlimited; ")
+
+def get_all_input(_):
+    inputs = []
+    species = set()
+
+    # collect FastQC reports
+    for path in Path(config["data_path"]).rglob("*.fastq.gz"):
+        inputs.append(str(path.parent.joinpath("fastqc", "pre", path.name[:-9] + "_fastqc.html")))
+        inputs.append(str(path.parent.joinpath("fastqc", "post", path.name[:-9] + "_fastqc.html")))
+        
+        species.add(str(path.parents[1]))
+    
+    for path in species:
+        # collect transrate reports
+        #inputs.append(path + "/pooled/trinity/transrate/assemblies.csv")
+        # collect corset results
+        #inputs.append(path + "/pooled/corset/output-clusters.txt")
+        # HACK
+        inputs.append(path + "/pooled/merged/merged.tr")
+    
+    return inputs
+
+rule all:
+    input:
+        get_all_input

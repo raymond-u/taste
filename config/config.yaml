@@ -1,0 +1,49 @@
+---
+
+pipeline_path: "/path/to/TASTES/pipeline"
+data_path: "/path/to/RNA-seq/data"
+singularity_binding: "/root/path/to/RNA-seq/data"
+
+fastp:
+  correct_mismatches: yes
+  filter_low_complexity: no
+
+rcorrector:
+  path: "/path/to/run_rcorrector.pl"
+
+sortmerna:
+  ref_path: "/path/to/sortmerna/database"
+  use_5.8s: yes
+  use_5s: yes
+  use_arc_16s: yes
+  use_arc_23s: yes
+  use_bac_16s: yes
+  use_bac_23s: yes
+  use_euk_18s: yes
+  use_euk_28s: yes
+
+ORNA:
+  kmer: 21
+
+trinity:
+  path: "/path/to/trinityrnaseq.v2.14.0.simg"
+
+transabyss:
+  conda_name: "conda env where transabyss is installed"
+  kmers: [32, 52, 72]
+
+soapdenovotrans:
+  kmers: [21, 31, 41, 51, 61, 71]
+
+oases:
+  kmer_min: 25
+  kmer_max: 65
+  kmer_step: 10
+
+MCSC:
+  taxon_level: "phylum"
+  target_taxon: "Tracheophyta"
+  path: "/path/to/MCSC_decontamination.sh"
+  dump_folder: "/path/to/MCSC/dumps"
+  uniref90_path: "/path/to/uniref90.dmnd"
+  uniref100_path: "/path/to/uniref100.taxlist"

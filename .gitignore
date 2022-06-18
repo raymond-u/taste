@@ -1,0 +1,9 @@
+# misc
+Thumbs.db
+.DS_Store
+*.textClipping
+.vscode/
+
+# exclude tmp files
+_*
+test/
