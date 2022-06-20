@@ -14,7 +14,7 @@ class Assembler(Enum):
 
 class Assembly_Merger:
     file_counter = 1
-
+    
     def __init__(self, input, output, logger):
         self.input = input
         self.output = output
@@ -27,7 +27,7 @@ class Assembly_Merger:
     
     def _parse_assemblies(self):
         assemblers = []
-
+        
         if self.input.trinity:
             assemblers.append(Assembler.TRINITY)
             self.logger.write("Trinity assembly(ies):\n")

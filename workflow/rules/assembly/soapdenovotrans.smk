@@ -2,7 +2,7 @@ from pathlib import Path
 
 def get_reports_input(wildcards):
     inputs = []
-
+    
     for path in Path(wildcards.path).glob("*/*_1.fastq.gz"):
         inputs.append(str(path.parent.joinpath("fastp", "logs", path.name[:-11] + ".json")))
     

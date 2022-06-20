@@ -33,9 +33,9 @@ rule sortmerna:
             command += " --ref {params.ref}/silva-euk-18s-id95.fasta"
         if config["sortmerna"]["use_euk_28s"]:
             command += " --ref {params.ref}/silva-euk-28s-id98.fasta"
-
+        
         command += " --threads {threads} --num_alignments 1 --no-best --fastx --paired_out --out2 --aligned {params.prefix}_rRNA" \
         " --other {params.prefix} 2> {log} && rename s/fwd/1/ {params.prefix}*.gz && rename s/rev/2/ {params.prefix}*.gz" \
         " && mv -f {params.prefix}_rRNA.log {wildcards.path}/sortmerna/logs"
-
+        
         shell(command)

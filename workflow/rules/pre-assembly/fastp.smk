@@ -15,12 +15,12 @@ rule fastp:
     run:
         # always trim poly-G since some RNA-seq data do not have an Illumina tag
         command = "fastp -i {input[0]} -I {input[1]} -o {output[0]} -O {output[1]} -h {log.html} -j {log.json} -w {threads}"
-
+        
         if config["fastp"]["correct_mismatches"]:
             command += " -c"
         if config["fastp"]["filter_low_complexity"]:
             command += " -y"
         
         command += " --detect_adapter_for_pe -g -l 25 2> {log.main}"
-
+        
         shell(command)

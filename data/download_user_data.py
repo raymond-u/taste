@@ -7,23 +7,23 @@ def prepare_download(trans, path_str, bash=""):
 
     if len(trans["children"]) == 0:
         os.makedirs(path_str, exist_ok=True)
-
+        
         if trans["rank"] == "species":
             for run in trans["transcriptomes"]:
                 os.makedirs(os.path.join(path_str, "transcriptomes", run["tissue"]), exist_ok=True)
-
+                
                 strand = []
-
+                
                 if not os.path.exists(os.path.join(path_str, "transcriptomes", run["tissue"], run["run"] + "_1.fastq.gz")):
                     strand.append(1)
                 if not os.path.exists(os.path.join(path_str, "transcriptomes", run["tissue"], run["run"] + "_2.fastq.gz")):
                     strand.append(2)
-
+                
                 bash += generate_download_command(run["run"], os.path.join(path_str, "transcriptomes", run["tissue"]), strand) + "\n"
-
+    
     for child in trans["children"]:
         bash = prepare_download(child, os.path.join(path_str, child["name"]), bash)
-
+    
     return bash
 
 def generate_download_command(accession_number, path_str, strand):
@@ -32,12 +32,12 @@ def generate_download_command(accession_number, path_str, strand):
         f"{accession_number[:6]}/{f'{int(accession_number[9 - len(accession_number):]):03d}/' if len(accession_number) > 9 else ''}{accession_number}/{accession_number}_{i}.fastq.gz {path_str}" for i in strand])
     else:
         print(f"{accession_number}: format not recognized. Skipping.")
-
+        
         return ""
 
 def download_user_data(trans):
     bash = prepare_download(trans, trans["name"])
-
+    
     try:
         with open("download_user_data.sh", "w") as file:
             file.write("\n".join([i for i in bash.split("\n") if i]))

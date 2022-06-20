@@ -11,19 +11,19 @@ def estimate_insert_size(forward_read_length, reverse_read_length):
 
 def get_insert_size(files):
     insert_sizes = []
-
+    
     for file in files:
         with open(file, "r") as f:
             report = json.load(f)
             peak = report["insert_size"]["peak"]
-
+            
             if peak == 0:
                 insert_sizes.append(estimate_insert_size(get_upper_floor(report["summary"]["before_filtering"]["read1_mean_length"]),
                 get_upper_floor(report["summary"]["before_filtering"]["read2_mean_length"])))
             else:
                 unknown = report["insert_size"]["unknown"]
                 histogram = report["insert_size"]["histogram"]
-
+                
                 if unknown / (unknown + sum(histogram)) > 0.5:
                     insert_sizes.append(estimate_insert_size(get_upper_floor(report["summary"]["before_filtering"]["read1_mean_length"]),
                     get_upper_floor(report["summary"]["before_filtering"]["read2_mean_length"])))
@@ -34,13 +34,13 @@ def get_insert_size(files):
 
 def get_max_read_length(files):
     max_read_length = 0
-
+    
     for file in files:
         with open(file, "r") as f:
             report = json.load(f)
             read_length = max(get_upper_floor(report["summary"]["before_filtering"]["read1_mean_length"]),
             get_upper_floor(report["summary"]["before_filtering"]["read2_mean_length"]))
-
+            
             if read_length > max_read_length:
                 max_read_length = read_length
     

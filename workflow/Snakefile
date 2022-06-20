@@ -38,7 +38,7 @@ shell.prefix("ulimit -n 1000000; ulimit -s unlimited; ")
 def get_all_input(_):
     inputs = []
     species = set()
-
+    
     # collect FastQC reports
     for path in Path(config["data_path"]).rglob("*.fastq.gz"):
         inputs.append(str(path.parent.joinpath("fastqc", "pre", path.name[:-9] + "_fastqc.html")))
