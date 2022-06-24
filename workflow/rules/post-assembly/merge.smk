@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 def get_merge_input(wildcards):
@@ -18,9 +19,10 @@ rule merge:
     input:
         unpack(get_merge_input)
     output:
-        # HACK
-        touch("{path}/pooled/merged/merged.tr")
+        "{path}/pooled/merged/merged.fa"
     log:
         "{path}/pooled/merged/logs/main.log"
-    #shell:
-    #    "perl workflow/scripts/trformat.pl"
+    run:
+        data = {"input": get_merge_input(wildcards), "output": output[0], "log": log[0]}
+        shell("mkdir -p {wildcards.path}/pooled/merged/logs"
+        f" && pypy3 workflow/scripts/merge.py '{json.dumps(data).replace('{', '{{').replace('}', '}}')}'")

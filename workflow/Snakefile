@@ -51,8 +51,8 @@ def get_all_input(_):
         #inputs.append(path + "/pooled/trinity/transrate/assemblies.csv")
         # collect corset results
         #inputs.append(path + "/pooled/corset/output-clusters.txt")
-        # HACK
-        inputs.append(path + "/pooled/merged/merged.tr")
+        # collect merged
+        inputs.append(path + "/pooled/merged/merged.fa")
     
     return inputs
 
