@@ -9,7 +9,7 @@ fastp:
   filter_low_complexity: no
 
 rcorrector:
-  path: "/path/to/run_rcorrector.pl"
+  path: "/path/to/rcorrector"
 
 sortmerna:
   ref_path: "/path/to/sortmerna/database"
@@ -26,7 +26,7 @@ ORNA:
   kmer: 21
 
 trinity:
-  path: "/path/to/trinityrnaseq.v2.14.0.simg"
+  path: "/path/to/trinityrnaseq.v2.x.x.simg"
 
 transabyss:
   conda_name: "conda env where transabyss is installed"
@@ -40,10 +40,13 @@ oases:
   kmer_max: 65
   kmer_step: 10
 
+evigene:
+  path: "/path/to/evigene"
+
 MCSC:
   taxon_level: "phylum"
   target_taxon: "Tracheophyta"
-  path: "/path/to/MCSC_decontamination.sh"
+  path: "/path/to/MCSC_decontamination"
   dump_folder: "/path/to/MCSC/dumps"
   uniref90_path: "/path/to/uniref90.dmnd"
   uniref100_path: "/path/to/uniref100.taxlist"
