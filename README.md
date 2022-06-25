@@ -26,7 +26,7 @@ $ git clone https://github.com/raymond-u/tastes.git
 ```
 
 TASTES depends on community-driven projects.
-Please refer to their respective instructions on how to install them. This list is subject to change.
+Please refer to their respective instructions on installation. This list is subject to change.
 - [Snakemake](https://github.com/snakemake/snakemake)
 - [FastQC](https://github.com/s-andrews/FastQC)
 - [fastp](https://github.com/OpenGene/fastp)
@@ -37,7 +37,7 @@ Please refer to their respective instructions on how to install them. This list 
 - [Trans-ABySS](https://github.com/bcgsc/transabyss)
 - [SOAPdenovo-Trans](https://github.com/aquaskyline/SOAPdenovo-Trans)
 - [Oases](https://github.com/dzerbino/oases)
-- [Evigene/tr2aacds.pl](http://arthropods.eugenes.org/EvidentialGene/evigene/scripts/prot/tr2aacds.pl)
+- [EvidentialGene](https://sourceforge.net/projects/evidentialgene)
 - [MCSC Decontamination](https://github.com/Lafond-LapalmeJ/MCSC_Decontamination)
 - [TransRate](https://github.com/pmomadeira/transrate)
 - [BUSCO](https://gitlab.com/ezlab/busco)
