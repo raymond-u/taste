@@ -18,7 +18,7 @@ TASTES is designed to work on hundreds of RNA-seq datasets of different species 
 
 ![TASTES](https://user-images.githubusercontent.com/36328498/174443998-3700e1ba-4e7b-49cc-b6ef-c8996d3b4055.png)
 
-## Installing
+## Installation
 
 To get TASTES, issue:
 ```bash
@@ -26,7 +26,7 @@ $ git clone https://github.com/raymond-u/tastes.git
 ```
 
 TASTES depends on community-driven projects.
-Please refer to their respective instructions on installation. This list is subject to change.
+Please refer to their respective instructions on how to install them. This list is subject to change.
 - [Snakemake](https://github.com/snakemake/snakemake)
 - [FastQC](https://github.com/s-andrews/FastQC)
 - [fastp](https://github.com/OpenGene/fastp)
@@ -58,19 +58,21 @@ data
 │       │
 │       +───species 0
 │       │   │
-│       │   +───root
-│       │   │   │   SRRxxxxxxxx_1.fasta.gz
-│       │   │   │   SRRxxxxxxxx_2.fasta.gz
-│       │   │   │   SRRyyyyyyyy_1.fasta.gz   # replication of the same tissue
-│       │   │   │   SRRyyyyyyyy_2.fasta.gz
-│       │   │
-│       │   +───leaf
-│       │       │   ...
+│       │   +───transcriptomes
+│       │       │
+|       │       +───root
+│       │       │   │   SRRxxxxxxxx_1.fasta.gz
+│       │       │   │   SRRxxxxxxxx_2.fasta.gz
+│       │       │   │   SRRyyyyyyyy_1.fasta.gz   # replication of the same tissue
+│       │       │   │   SRRyyyyyyyy_2.fasta.gz
+│       │       │    
+│       │       +───leaf
+│       │           │   ...
 │       │
 │       +───species 1
 │           │
 │           +───...
-│   
+│
 +───subfamily B
     │
     +───...
@@ -100,7 +102,7 @@ $ nohup panoptes &
 snakemake --cores 8 --wms-monitor http://127.0.0.1:5000
 ```
 
-## TODO
+## Todo
 
 - Finish the main pipeline (yup, have fun playing around and breaking things).
 - Make modules optional whenever possible.
