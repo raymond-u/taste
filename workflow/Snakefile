@@ -1,4 +1,4 @@
-# For whatever reason, simly nohup & exit seemed to hang the singularity processes. Use screen or disown.
+# For whatever reason, it seems that simply nohup & exit would hang the singularity processes. Use screen or disown.
 
 from pathlib import Path
 
@@ -22,16 +22,15 @@ include: "rules/assembly/soapdenovotrans.smk"
 include: "rules/assembly/oases.smk"
 
 # reduction & decontamination
-#include: "rules/post-assembly/tr2aacds.smk"
+include: "rules/post-assembly/merge.smk"
+#include: "rules/post-assembly/evigene_tr2aacds.smk"
 #include: "rules/post-assembly/MCSC.smk"
 
 # annotation & QC
 #include: "rules/dammit.smk"
-#include: "rules/transrate.smk"
-#include: "rules/salmon_index.smk"
 #include: "rules/salmon_index.smk"
 #include: "rules/salmon_quant.smk"
-#include: "rules/corset.smk"
+#include: "rules/transrate.smk"
 
 shell.prefix("ulimit -n 1000000; ulimit -s unlimited; ")
 
@@ -47,11 +46,7 @@ def get_all_input(_):
         species.add(str(path.parents[1]))
     
     for path in species:
-        # collect transrate reports
-        #inputs.append(path + "/pooled/trinity/transrate/assemblies.csv")
-        # collect corset results
-        #inputs.append(path + "/pooled/corset/output-clusters.txt")
-        # collect merged
+        # collect merged assemblies
         inputs.append(path + "/pooled/merged/merged.fa")
     
     return inputs
