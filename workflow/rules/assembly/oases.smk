@@ -1,6 +1,9 @@
 def get_insert_size(_, input):
-    with open(f{input.config}, "r") as config:
+    with open(input.config, "r") as config:
         return config.read().split()[4][8:]
+
+def get_number_of_threads(_, threads):
+    return threads - 1
 
 rule oases_hash:
     input:
@@ -12,12 +15,13 @@ rule oases_hash:
     params:
         kmer_min=config["oases"]["kmer_min"],
         kmer_max=config["oases"]["kmer_max"],
-        kmer_step=config["oases"]["kmer_step"]
+        kmer_step=config["oases"]["kmer_step"],
+        num_threads=get_number_of_threads
     threads:
         8
     shell:
         # set number of threads for OPENMP
-        "export OMP_NUM_THREADS={threads - 1} && export OMP_THREAD_LIMIT={threads} && velveth {wildcards.path}/pooled/oases/k" \
+        "export OMP_NUM_THREADS={params.num_threads} && export OMP_THREAD_LIMIT={threads} && velveth {wildcards.path}/pooled/oases/k" \
         " {params.kmer_min},{params.kmer_max},{params.kmer_step} -shortPaired -fastq -separate {input} 2> {log}" \
         " && for i in {{{params.kmer_min}..{params.kmer_max}..{params.kmer_step}}}; do mv -f" \
         " {wildcards.path}/pooled/oases/k_\"$i\" {wildcards.path}/pooled/oases/k\"$i\"; done"
@@ -31,12 +35,13 @@ rule oases_graph:
     log:
         "{path}/pooled/oases/logs/velvetg_k{kmer}.log"
     params:
-        insert_size=get_insert_size
+        insert_size=get_insert_size,
+        num_threads=get_number_of_threads
     threads:
         8
     shell:
         # set number of threads for OPENMP
-        "export OMP_NUM_THREADS={threads - 1} && export OMP_THREAD_LIMIT={threads}" \
+        "export OMP_NUM_THREADS={params.num_threads} && export OMP_THREAD_LIMIT={threads}" \
         " && velvetg {wildcards.path}/pooled/oases/k{wildcards.kmer} -ins_length {params.insert_size} -read_trkg yes 2> {log}"
 
 rule oases:

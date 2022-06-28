@@ -8,9 +8,9 @@ rule transabyss:
     threads:
         8
     conda:
-        config["transabyss"]["conda_name"]
+        "../../envs/transabyss.yaml"
     shell:
         # set tmpdir for ABySS
-        "export TMPDIR={wildcards.path}/pooled/transabyss/k{wildcards.kmer}_tmp && transabyss --pe {input.[0]} {input.[1]}" \
+        "export TMPDIR={wildcards.path}/pooled/transabyss/k{wildcards.kmer}_tmp && transabyss --pe {input[0]} {input[1]}" \
         " --outdir {wildcards.path}/pooled/transabyss/k{wildcards.kmer} --length 200 --threads {threads} -k {wildcards.kmer}" \
         " 2> {log} && mv -f {wildcards.path}/pooled/transabyss/k{wildcards.kmer}/transabyss-final.fa {output}"
