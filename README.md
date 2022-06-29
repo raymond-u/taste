@@ -43,6 +43,8 @@ Please refer to their respective instructions on how to install them. This list 
 - [BUSCO](https://gitlab.com/ezlab/busco)
 - [dammit](https://github.com/dib-lab/dammit)
 
+Finally, [Rust](https://www.rust-lang.org/tools/install) (with [rust-script](https://crates.io/crates/rust-script)) and [PyPy](https://www.pypy.org/download.html) is optional but strongly recommended. Based on compatibility considerations, I/O bound scripts in TASTES are available in two flavors, i.e. Rust and Python. Taken the view that Rust scripts generally run much faster than python scripts, and PyPy is a more efficient Python interpreter than CPython, TASTES will first check if Rust script is in $PATH, then PyPy, lastly Python. A major speed improvement should become apparent as dataset grows.
+
 Make sure they can be found in $PATH, or paths to their executables are correctly configured in `config/config.yaml`.
 
 ## Usage
@@ -50,7 +52,7 @@ Make sure they can be found in $PATH, or paths to their executables are correctl
 The main pipeline of TASTES is designed to work on data structured as below:
 
 ```
-data
+family K
 │
 +───subfamily A
 │   │
@@ -60,7 +62,7 @@ data
 │       │   │
 │       │   +───transcriptomes
 │       │       │
-|       │       +───root
+│       │       +───root
 │       │       │   │   SRRxxxxxxxx_1.fasta.gz
 │       │       │   │   SRRxxxxxxxx_2.fasta.gz
 │       │       │   │   SRRyyyyyyyy_1.fasta.gz   # replication of the same tissue
@@ -99,17 +101,17 @@ Since it takes quite some time to complete, it is advisable to set up a server f
 $ cd TASTES
 $ pip install panoptes-ui
 $ nohup panoptes &
-snakemake --cores 8 --wms-monitor http://127.0.0.1:5000
+$ snakemake --cores 8 --wms-monitor http://127.0.0.1:5000
 ```
 
 ## Todo
 
-- Finish the main pipeline (yup, have fun playing around and breaking things).
+- Finish the main pipeline (yup, have fun playing around and breaking things for the time being).
 - Make modules optional whenever possible.
 - Add unit tests.
 - Add comprehensive docs.
 - Support single-end and long-read data.
-- Make use of Snakemake wrappers and Conda environment definition.
+- Make use of Snakemake wrappers and Conda environment definition files.
 - Make TASTES more accessible by simplifying installation.
 - A logo with TASTES!
 
