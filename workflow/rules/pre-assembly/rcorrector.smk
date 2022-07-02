@@ -19,13 +19,17 @@ rule rcorrector:
     shell:
         "perl {params.path}/run_rcorrector.pl -1 {input[0]} -2 {input[1]} -od {wildcards.path}/rcorrector/ -t {threads} 2> {log}"
 
-rule rcorrector_followup:
+rule rcorrector_cleanup:
     input:
         expand("{{path}}/rcorrector/{{run_number}}_{pair}.cor.fq.gz", pair=[1, 2])
     output:
         temp(expand("{{path}}/rcorrector/{{run_number}}_{pair}.fin.fq.gz", pair=[1, 2]))
     log:
         "{path}/rcorrector/logs/{run_number}_fin.log"
-    run:
-        data = {"input": list(input), "output": list(output), "log": log[0]}
-        shell(f"pypy3 workflow/scripts/rcorrector_followup.py '{json.dumps(data).replace('{', '{{').replace('}', '}}')}'")
+    conda:
+        "../../envs/rust-script.yaml"
+    script:
+        "../../scripts/rcorrector_cleanup.rs"
+        # old python script
+        #data = {"input": list(input), "output": list(output), "log": log[0]}
+        #shell(f"pypy3 workflow/scripts/rcorrector_cleanup.py '{json.dumps(data).replace('{', '{{').replace('}', '}}')}'")

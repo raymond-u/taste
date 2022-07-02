@@ -1,6 +1,3 @@
-#!/usr/bin/env pypy3
-# TODO: Port to Rust script.
-
 import json
 import sys
 from enum import Enum, unique

@@ -19,10 +19,14 @@ rule merge:
     input:
         unpack(get_merge_input)
     output:
-        "{path}/pooled/merged/merged.fa"
+        temp("{path}/pooled/merged/merged.fa")
     log:
         "{path}/pooled/merged/logs/main.log"
-    run:
-        data = {"input": get_merge_input(wildcards), "output": output[0], "log": log[0]}
-        shell("mkdir -p {wildcards.path}/pooled/merged/logs"
-        f" && pypy3 workflow/scripts/merge.py '{json.dumps(data).replace('{', '{{').replace('}', '}}')}'")
+    conda:
+        "../../envs/rust-script.yaml"
+    script:
+        "../../scripts/merge.rs"
+        # old python script
+        #data = {"input": get_merge_input(wildcards), "output": output[0], "log": log[0]}
+        #shell("mkdir -p {wildcards.path}/pooled/merged/logs"
+        #f" && pypy3 workflow/scripts/merge.py '{json.dumps(data).replace('{', '{{').replace('}', '}}')}'")

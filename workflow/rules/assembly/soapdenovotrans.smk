@@ -15,7 +15,7 @@ rule soapdenovotrans_config:
     output:
         "{path}/pooled/soapdenovotrans/pooled.config"
     script:
-        "workflow/scripts/make_soapdenovotrans_config.py"
+        "../../scripts/make_soapdenovotrans_config.py"
 
 rule soapdenovotrans:
     input:
