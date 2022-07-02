@@ -27,6 +27,6 @@ rule soapdenovotrans:
     threads:
         8
     shell:
-        "mkdir -p {wildcards.path}/pooled/soapdenovotrans/k{wildcards.kmer} && SOAPdenovo-Trans-127mer all -s {input}" \
-        " -o {wildcards.path}/pooled/soapdenovotrans/k{wildcards.kmer}/fin -F -K {wildcards.kmer} -p {threads} -L 200" \
-        " -t 32 2> {log} && mv -f {wildcards.path}/pooled/soapdenovotrans/k{wildcards.kmer}/fin.scafSeq {output}"
+        "mkdir -p {wildcards.path:q}/pooled/soapdenovotrans/k{wildcards.kmer} && SOAPdenovo-Trans-127mer all -s {input:q}" \
+        " -o {wildcards.path:q}/pooled/soapdenovotrans/k{wildcards.kmer}/fin -F -K {wildcards.kmer} -p {threads} -L 200" \
+        " -t 32 2> {log:q} && mv -f {wildcards.path:q}/pooled/soapdenovotrans/k{wildcards.kmer}/fin.scafSeq {output:q}"

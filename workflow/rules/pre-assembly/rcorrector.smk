@@ -17,7 +17,7 @@ rule rcorrector:
     shadow:
         "minimal"
     shell:
-        "perl {params.path}/run_rcorrector.pl -1 {input[0]} -2 {input[1]} -od {wildcards.path}/rcorrector/ -t {threads} 2> {log}"
+        "perl {params.path:q}/run_rcorrector.pl -1 {input[0]:q} -2 {input[1]:q} -od {wildcards.path:q}/rcorrector/ -t {threads} 2> {log:q}"
 
 rule rcorrector_cleanup:
     input:

@@ -21,10 +21,10 @@ rule oases_hash:
         8
     shell:
         # set number of threads for OPENMP
-        "export OMP_NUM_THREADS={params.num_threads} && export OMP_THREAD_LIMIT={threads} && velveth {wildcards.path}/pooled/oases/k" \
-        " {params.kmer_min},{params.kmer_max},{params.kmer_step} -shortPaired -fastq -separate {input} 2> {log}" \
-        " && for i in {{{params.kmer_min}..{params.kmer_max}..{params.kmer_step}}}; do mv -f" \
-        " {wildcards.path}/pooled/oases/k_\"$i\" {wildcards.path}/pooled/oases/k\"$i\"; done"
+        "export OMP_NUM_THREADS={params.num_threads} && export OMP_THREAD_LIMIT={threads}" \
+        " && velveth {wildcards.path:q}/pooled/oases/k {params.kmer_min},{params.kmer_max},{params.kmer_step} -shortPaired" \
+        " -fastq -separate {input:q} 2> {log:q} && for i in {{{params.kmer_min}..{params.kmer_max}..{params.kmer_step}}};" \
+        " do mv -f {wildcards.path:q}/pooled/oases/k_\"$i\" {wildcards.path:q}/pooled/oases/k\"$i\"; done"
 
 rule oases_graph:
     input:
@@ -42,7 +42,7 @@ rule oases_graph:
     shell:
         # set number of threads for OPENMP
         "export OMP_NUM_THREADS={params.num_threads} && export OMP_THREAD_LIMIT={threads}" \
-        " && velvetg {wildcards.path}/pooled/oases/k{wildcards.kmer} -ins_length {params.insert_size} -read_trkg yes 2> {log}"
+        " && velvetg {wildcards.path:q}/pooled/oases/k{wildcards.kmer} -ins_length {params.insert_size} -read_trkg yes 2> {log:q}"
 
 rule oases:
     input:
@@ -56,5 +56,5 @@ rule oases:
         insert_size=get_insert_size
     shell:
         # oases does not support multi-threading
-        "oases {wildcards.path}/pooled/oases/k{wildcards.kmer} -ins_length {params.insert_size} -scaffolding yes" \
-        " -min_trans_lgth 200 2> {log} && mv -f {wildcards.path}/pooled/oases/k{wildcards.kmer}/transcripts.fa {output}"
+        "oases {wildcards.path:q}/pooled/oases/k{wildcards.kmer} -ins_length {params.insert_size} -scaffolding yes" \
+        " -min_trans_lgth 200 2> {log:q} && mv -f {wildcards.path:q}/pooled/oases/k{wildcards.kmer}/transcripts.fa {output:q}"

@@ -11,6 +11,6 @@ rule trinity:
     threads:
         8
     shell:
-        "singularity exec -B {params.singularity_binding} -e {params.path} Trinity --seqType fq --max_memory 30G --CPU {threads}" \
-        " --left {input[0]} --right {input[1]} --output {wildcards.path}/pooled/trinity/trinity_tmp --full_cleanup" \
-        " --no_normalize_reads 2> {log} && rename s/trinity_tmp.Trinity.fasta/assembly_k25.fa/ {wildcards.path}/pooled/trinity/*"
+        "singularity exec -B {params.singularity_binding:q} -e {params.path:q} Trinity --seqType fq --max_memory 30G --CPU {threads}" \
+        " --left {input[0]:q} --right {input[1]:q} --output {wildcards.path:q}/pooled/trinity/trinity_tmp --full_cleanup" \
+        " --no_normalize_reads 2> {log:q} && rename s/trinity_tmp.Trinity.fasta/assembly_k25.fa/ {wildcards.path:q}/pooled/trinity/*"

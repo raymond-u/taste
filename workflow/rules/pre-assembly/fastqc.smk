@@ -11,8 +11,8 @@ rule fastqc_pre:
     threads:
         2
     shell:
-        "mkdir -p {wildcards.path}/fastqc/pre && fastqc --noextract -o {wildcards.path}/fastqc/pre" \
-        " -t {threads} -d {wildcards.path}/fastqc/pre {input[0]} {input[1]} 2> {log}"
+        "mkdir -p {wildcards.path:q}/fastqc/pre && fastqc --noextract -o {wildcards.path:q}/fastqc/pre" \
+        " -t {threads} -d {wildcards.path:q}/fastqc/pre {input[0]:q} {input[1]:q} 2> {log:q}"
 
 rule fastqc_post:
     input:
@@ -24,5 +24,5 @@ rule fastqc_post:
     threads:
         2
     shell:
-        "mkdir -p {wildcards.path}/fastqc/post && fastqc --noextract -o {wildcards.path}/fastqc/post" \
-        " -t {threads} -d {wildcards.path}/fastqc/post {input[0]} {input[1]} 2> {log}"
+        "mkdir -p {wildcards.path:q}/fastqc/post && fastqc --noextract -o {wildcards.path:q}/fastqc/post" \
+        " -t {threads} -d {wildcards.path:q}/fastqc/post {input[0]:q} {input[1]:q} 2> {log:q}"

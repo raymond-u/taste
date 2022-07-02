@@ -9,5 +9,5 @@ rule transrate:
     threads:
         8
     shell:
-        "transrate --assembly={input.assembly} --left={input.reads[0]} --right={input.reads[1]}" \
-        " --threads={threads} --output={wildcards.path}/trinity/transrate 2> {log}"
+        "transrate --assembly={input.assembly:q} --left={input.reads[0]:q} --right={input.reads[1]:q}" \
+        " --threads={threads} --output={wildcards.path:q}/trinity/transrate 2> {log:q}"

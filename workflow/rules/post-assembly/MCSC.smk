@@ -15,6 +15,6 @@ rule MCSC:
     threads:
         8
     shell:
-        "sh {params.path}/MCSC_decontamination.sh -i {input} -o {wildcards.path}/pooled/MCSC -l {params.taxon_level}" \
-        " -n {params.target_taxon} -b {params.path} -d {params.dump_folder} -u {params.uniref90_path}" \
-        " -x {params.uniref100_path} -t {threads} 2> {log}"
+        "sh {params.path:q}/MCSC_decontamination.sh -i {input:q} -o {wildcards.path:q}/pooled/MCSC -l {params.taxon_level:q}" \
+        " -n {params.target_taxon:q} -b {params.path:q} -d {params.dump_folder:q} -u {params.uniref90_path:q}" \
+        " -x {params.uniref100_path:q} -t {threads} 2> {log:q}"

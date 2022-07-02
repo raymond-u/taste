@@ -10,5 +10,5 @@ rule ORNA:
     shadow:
         "minimal"
     shell:
-        "ORNA -sorting 1 -kmer {params.kmer} -pair1 {input[0]} -pair2 {input[1]} -output {wildcards.path}/pooled/ORNA/pooled" \
-        " -type fq 2> {log}"
+        "ORNA -sorting 1 -kmer {params.kmer} -pair1 {input[0]:q} -pair2 {input[1]:q}" \
+        " -output {wildcards.path:q}/pooled/ORNA/pooled -type fq 2> {log:q}"

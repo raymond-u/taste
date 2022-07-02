@@ -16,4 +16,4 @@ rule pool:
     output:
         temp(expand("{{path}}/pooled/pooled_{pair}.fq.gz", pair=[1, 2]))
     run:
-        "cat {input.forward_reads} > {output[0]} && cat {input.reverse_reads} > {output[1]}"
+        "cat {input.forward_reads:q} > {output[0]:q} && cat {input.reverse_reads:q} > {output[1]:q}"
