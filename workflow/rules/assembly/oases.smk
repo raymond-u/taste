@@ -20,7 +20,7 @@ rule oases_hash:
     threads:
         8
     conda:
-        "../envs/oases.yaml"
+        "../../envs/oases.yaml"
     shell:
         # set number of threads for OPENMP
         # the manual of velveth says it counts kmer_max in, which is not true
@@ -42,7 +42,7 @@ rule oases_graph:
     threads:
         8
     conda:
-        "../envs/oases.yaml"
+        "../../envs/oases.yaml"
     shell:
         # set number of threads for OPENMP
         "export OMP_NUM_THREADS={params.num_threads} && export OMP_THREAD_LIMIT={threads}"
@@ -59,7 +59,7 @@ rule oases:
     params:
         insert_size=get_insert_size
     conda:
-        "../envs/oases.yaml"
+        "../../envs/oases.yaml"
     shell:
         # oases does not support multi-threading
         "oases {wildcards.path:q}/pooled/oases/k_{wildcards.kmer} -ins_length {params.insert_size} -scaffolding yes"
