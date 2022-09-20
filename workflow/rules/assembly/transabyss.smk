@@ -11,6 +11,7 @@ rule transabyss:
         "../../envs/transabyss.yaml"
     shell:
         # set tmpdir for ABySS
-        "export TMPDIR={wildcards.path:q}/pooled/transabyss/k{wildcards.kmer}_tmp && transabyss --pe {input[0]:q} {input[1]:q}" \
-        " --outdir {wildcards.path:q}/pooled/transabyss/k{wildcards.kmer} --length 200 --threads {threads} -k {wildcards.kmer}" \
-        " 2> {log:q} && mv -f {wildcards.path:q}/pooled/transabyss/k{wildcards.kmer}/transabyss-final.fa {output:q}"
+        "mkdir -p {wildcards.path:q}/pooled/transabyss/k{wildcards.kmer}_tmp && export"
+        " TMPDIR={wildcards.path:q}/pooled/transabyss/k{wildcards.kmer}_tmp && transabyss --pe {input[0]:q} {input[1]:q}"
+        " --outdir {wildcards.path:q}/pooled/transabyss/k{wildcards.kmer} --length 200 --threads {threads} -k {wildcards.kmer}"
+        " &> {log:q} && mv -f {wildcards.path:q}/pooled/transabyss/k{wildcards.kmer}/transabyss-final.fa {output:q}"

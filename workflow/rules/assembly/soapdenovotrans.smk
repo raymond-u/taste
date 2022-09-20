@@ -26,7 +26,9 @@ rule soapdenovotrans:
         "{path}/pooled/soapdenovotrans/logs/assembly_k{kmer}.log"
     threads:
         8
+    conda:
+        "../../envs/soapdenovotrans.yaml"
     shell:
-        "mkdir -p {wildcards.path:q}/pooled/soapdenovotrans/k{wildcards.kmer} && SOAPdenovo-Trans-127mer all -s {input:q}" \
-        " -o {wildcards.path:q}/pooled/soapdenovotrans/k{wildcards.kmer}/fin -F -K {wildcards.kmer} -p {threads} -L 200" \
-        " -t 32 2> {log:q} && mv -f {wildcards.path:q}/pooled/soapdenovotrans/k{wildcards.kmer}/fin.scafSeq {output:q}"
+        "mkdir -p {wildcards.path:q}/pooled/soapdenovotrans/k{wildcards.kmer} && SOAPdenovo-Trans-127mer all -s {input:q}"
+        " -o {wildcards.path:q}/pooled/soapdenovotrans/k{wildcards.kmer}/fin -F -K {wildcards.kmer} -p {threads} -L 200"
+        " -t 32 &> {log:q} && mv -f {wildcards.path:q}/pooled/soapdenovotrans/k{wildcards.kmer}/fin.scafSeq {output:q}"

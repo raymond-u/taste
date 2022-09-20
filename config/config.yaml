@@ -21,9 +21,6 @@ sortmerna:
 ORNA:
   kmer: 21
 
-trinity:
-  path: "/path/to/trinityrnaseq.v2.x.x.simg"
-
 transabyss:
   kmers: [32, 52, 72]
 
