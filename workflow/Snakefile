@@ -1,11 +1,11 @@
 from pathlib import Path
 
 configfile: "config/config.yaml"
-workdir: config["pipeline_path"]
+workdir: str(Path(workflow.basedir).parent)
 
 # preprocessing & QC
 include: "rules/pre-assembly/fastqc.smk"
-include: "rules/pre-assembly/fastp.smk" # fastp outputs should be reserved for downstream analysis (for example, gene expression profiling)
+include: "rules/pre-assembly/fastp.smk"
 include: "rules/pre-assembly/rcorrector.smk"
 include: "rules/pre-assembly/sortmerna.smk"
 
@@ -30,14 +30,14 @@ include: "rules/post-assembly/merge.smk"
 #include: "rules/salmon_quant.smk"
 #include: "rules/transrate.smk"
 
-shell.prefix("ulimit -n 1000000; ulimit -s unlimited; ")
-
 def get_all_input(_):
+    data_path = f"{workflow.basedir.basedir}/{config['data_path']}" if config["data_path"] == "data" else config["data_path"]
+    
     inputs = []
     species = set()
     
     # collect FastQC reports
-    for path in Path(config["data_path"]).rglob("*.fastq.gz"):
+    for path in Path(data_path).rglob("*.fastq.gz"):
         inputs.append(str(path.parent.joinpath("fastqc", "pre", path.name[:-9] + "_fastqc.html")))
         inputs.append(str(path.parent.joinpath("fastqc", "post", path.name[:-9] + "_fastqc.html")))
         

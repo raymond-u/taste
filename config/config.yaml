@@ -1,6 +1,4 @@
-pipeline_path: "/path/to/TASTES/pipeline"
-data_path: "/path/to/RNA-seq/data"
-singularity_binding: "/root/path/to/RNA-seq/data"
+data_path: "data" # use absolute path for custom data
 
 fastp:
   correct_mismatches: yes
