@@ -4,9 +4,6 @@ fastp:
   correct_mismatches: yes
   filter_low_complexity: no
 
-rcorrector:
-  path: "/path/to/rcorrector"
-
 sortmerna:
   ref_path: "/path/to/sortmerna/database"
   use_5.8s: yes

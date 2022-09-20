@@ -1,5 +1,3 @@
-import json
-
 wildcard_constraints:
     run_number="[A-Z]RR[0-9]+"
 
@@ -8,16 +6,16 @@ rule rcorrector:
         expand("{{path}}/fastp/{{run_number}}_{pair}.fq.gz", pair=[1, 2])
     output:
         temp(expand("{{path}}/rcorrector/{{run_number}}_{pair}.cor.fq.gz", pair=[1, 2]))
-    params:
-        path=config["rcorrector"]["path"]
     log:
         "{path}/rcorrector/logs/{run_number}.log"
     threads:
         8
+    conda:
+        "../../envs/rcorrector.yaml"
     shadow:
         "minimal"
     shell:
-        "perl {params.path:q}/run_rcorrector.pl -1 {input[0]:q} -2 {input[1]:q} -od {wildcards.path:q}/rcorrector/ -t {threads} 2> {log:q}"
+        "perl run_rcorrector.pl -1 {input[0]:q} -2 {input[1]:q} -od {wildcards.path:q}/rcorrector/ -t {threads} &> {log:q}"
 
 rule rcorrector_cleanup:
     input:
@@ -29,7 +27,7 @@ rule rcorrector_cleanup:
     conda:
         "../../envs/rust-script.yaml"
     script:
-        "../../scripts/rcorrector_cleanup.rs"
         # old python script
-        #data = {"input": list(input), "output": list(output), "log": log[0]}
-        #shell(f"pypy3 workflow/scripts/rcorrector_cleanup.py '{json.dumps(data).replace('{', '{{').replace('}', '}}')}'")
+        # data = {"input": list(input), "output": list(output), "log": log[0]}
+        # shell(f"pypy3 workflow/scripts/rcorrector_cleanup.py '{json.dumps(data).replace('{', '{{').replace('}', '}}')}'")
+        "../../scripts/rcorrector_cleanup.rs"
