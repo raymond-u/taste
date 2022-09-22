@@ -1,6 +1,3 @@
-import json
-from pathlib import Path
-
 def get_merge_input(wildcards):
     # collect Trinity assembly
     trinity = [f"{wildcards.path}/pooled/trinity/assembly_k25.fa"]
